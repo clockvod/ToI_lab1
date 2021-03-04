@@ -12,6 +12,7 @@ namespace sharp_lab1
                 Console.WriteLine("1.vigener");
                 Console.WriteLine("2.fence");
                 Console.WriteLine("3.columns");
+                Console.WriteLine("4.matrix");
                 Console.WriteLine("0.exit");
                 int a = int.Parse(Console.ReadLine());
                 switch (a)
@@ -27,6 +28,9 @@ namespace sharp_lab1
                         break;
                     case 3:
                         Columns.ColumnsCode();
+                        break;
+                    case 4:
+                        Matrix.MatrixCode();
                         break;
                 }
             }

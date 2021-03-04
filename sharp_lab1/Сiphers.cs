@@ -303,4 +303,138 @@ namespace sharp_lab1
             return result;
         }
     }
+    
+    public static class Matrix 
+    {
+        public static void MatrixCode()
+        { 
+            Console. WriteLine("enter string");
+            string source = Console.ReadLine();
+            Console.WriteLine("enter key");
+            string key = Console.ReadLine();
+            Console.WriteLine("1.encrypt");
+            Console.WriteLine("2.decrypt");
+
+            int a = int.Parse(Console.ReadLine());
+            switch (a)
+            {
+                case 1 :
+                    Console.WriteLine(Encrypt(source, key));
+                    break;
+                case 2 :
+                    Console.WriteLine(Decrypt(source, key));
+                    break;
+            }
+        }
+        
+        private static bool[,] GetBoolMatrixFromString(string key)
+        {
+            int size = (int)Math.Round(Math.Sqrt(key.Length));
+            bool[,] keyMatrix = new bool[size, size];
+            int offset = 0;
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    try
+                    {
+                        keyMatrix[i, j] = key[offset + j] == '1';
+                    }
+                    catch (Exception)
+                    {
+                        return keyMatrix;
+                    }
+                }
+                offset += size;
+            }
+            return keyMatrix;
+        }
+        private static char[,] GetCharMatrixFromString(string key)
+        {
+            int size = (int)Math.Round(Math.Sqrt(key.Length));
+            char[,] cipherMatrix = new char[size, size];
+            int offset = 0;
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    try
+                    {
+                        cipherMatrix[i, j] = key[offset + j];
+                    }
+                    catch (Exception)
+                    {
+                        return cipherMatrix;
+                    }
+                }
+                offset += size;
+            }
+            return cipherMatrix;
+        }
+        private static bool[,] RotateMatrix(bool[,] source, int size, bool clockSide)
+        {
+            bool[,] result = new bool[size, size];
+            for (int i = 0; i < size; i++)
+                for (int j = 0; j < size; j++)
+                {
+                    if (clockSide)
+                        result[i, j] = source[size - j - 1, i];
+                    else
+                        result[size - j - 1, i] = source[i, j];
+                }
+            return result;
+        }
+        public static string Encrypt(string source, string key)
+        {
+            int size = (int)Math.Round(Math.Sqrt(key.Length));
+            char[,] cipherMatrix = new char[size, size];
+            int srcPos = 0, srcLength = source.Length;
+            bool[,] keyMatrix = GetBoolMatrixFromString(key);
+            Random rnd = new Random();
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    for (int u = 0; u < size; u++)
+                    {
+                        if (srcPos < srcLength && keyMatrix[j, u])
+                            cipherMatrix[j, u] = source[srcPos++];
+                        else
+                            if (cipherMatrix[j, u] == '\0')
+                                cipherMatrix[j, u] = (char)rnd.Next(97, 122);    
+                    }
+                }
+                keyMatrix = RotateMatrix(keyMatrix, size, true);
+            }
+            string result = "";
+            for (int i = 0; i < size; i++)
+                for (int j = 0; j < size; j++)
+                    result += cipherMatrix[i, j];
+            return result;
+        }
+        public static string Decrypt(string source, string key)
+        {
+            int size = (int)Math.Round(Math.Sqrt(key.Length));
+            char[,] cipherMatrix = GetCharMatrixFromString(source);
+            //int srcPos = 0, srcLength = src.Length;
+            bool[,] keyMatrix = GetBoolMatrixFromString(key);
+            string result = "";
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    for (int u = 0; u < size; u++)
+                    {
+                        if (keyMatrix[j, u])
+                        {
+                            string tmp = (cipherMatrix[j, u] == ' ') ? "" : cipherMatrix[j, u].ToString();
+                            result += tmp;
+                        }
+                    }
+                }
+                keyMatrix = RotateMatrix(keyMatrix, size, true);
+            }
+            return result;
+        }
+    }
 }
