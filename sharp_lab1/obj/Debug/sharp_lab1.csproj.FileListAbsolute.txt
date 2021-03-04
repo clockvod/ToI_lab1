@@ -1,0 +1,6 @@
+D:\951001\ToI\sharp_lab1\sharp_lab1\bin\Debug\sharp_lab1.exe
+D:\951001\ToI\sharp_lab1\sharp_lab1\bin\Debug\sharp_lab1.pdb
+D:\951001\ToI\sharp_lab1\sharp_lab1\obj\Debug\sharp_lab1.csprojAssemblyReference.cache
+D:\951001\ToI\sharp_lab1\sharp_lab1\obj\Debug\sharp_lab1.csproj.CoreCompileInputs.cache
+D:\951001\ToI\sharp_lab1\sharp_lab1\obj\Debug\sharp_lab1.exe
+D:\951001\ToI\sharp_lab1\sharp_lab1\obj\Debug\sharp_lab1.pdb

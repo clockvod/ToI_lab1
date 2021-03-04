@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/projectSettingsUpdater.xml
+/.idea.sharp_lab1.iml
+/contentModel.xml
+# Datasource local storage ignored files
+/../../../../../../../:\951001\ToI\sharp_lab1\.idea\.idea.sharp_lab1\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
